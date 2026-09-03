@@ -41,8 +41,22 @@ http.createServer((req, resp) => {
                 // Result: { name: "Rushikesh", age: "22" }
                 let readableData = queryString.parse(rawData);
 
+                // Synchronously write the parsed form data to a text file
+                // let dataString = "My name is  "+ readableData.name + " and my email is " + readableData.email;
+                // fs.writeFileSync('text/student.txt', dataString);
+
+                // Asynchronously write the parsed form data to a text file
+               let dataString = "My name is  "+ readableData.name + " and my email is " + readableData.email;
+               fs.writeFile('text/Async.txt', dataString, (err) => {
+                    if (err) {
+                        console.error("Error writing to file:", err);
+                    } else {
+                        console.log("Data written to file successfully.");
+                    }
+                });
+
                 // Log the parsed form data
-                console.log(readableData);
+                console.log(dataString);
 
                 // Send success response to browser
                 resp.write('<h1>Form submitted successfully</h1>');
